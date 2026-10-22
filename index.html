@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sub Sandwich Ordering Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="header-brand" onclick="app.showScreen('start-screen')" style="cursor:pointer; display:flex; align-items:center; gap:12px;">
+        <img src="logo.svg" alt="Jersey Mike's Subs Logo" class="app-logo">
+        <h1 class="logo">Sub Sandwich Prototype</h1>
+      </div>
+      <div id="order-info-bar" class="order-info-bar hidden">
+        <span id="info-mode">Delivery</span> | 
+        <span id="info-address">Address</span> | 
+        <span id="info-store">Store</span>
+      </div>
+      <button id="view-cart-btn" class="btn btn-secondary hidden" onclick="app.showScreen('payment-screen')">
+        Cart (<span id="cart-count">0</span>)
+      </button>
+    </div>
+
+    <!-- Category Navigation Bar -->
+    <nav class="main-nav">
+      <div class="container nav-container">
+        <button class="nav-item" onclick="app.showScreen('start-screen')">Start / Sign In</button>
+        <button class="nav-item" onclick="app.navigateToMenu('all')">All Menu Items</button>
+        <button class="nav-item" onclick="app.navigateToMenu('Fresh Grilled hot subs')">Fresh Grilled Hot Subs</button>
+        <button class="nav-item" onclick="app.navigateToMenu('Classic Subs')">Classic Cold Subs</button>
+        <button class="nav-item nav-highlight" onclick="app.openCustomBuilder()">Build Your Own Sub</button>
+        <button class="nav-item" onclick="app.showScreen('payment-screen')">Cart & Checkout</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container main-content">
+
+    <!-- STEP 1: START / SIGN IN OPTION -->
+    <section id="start-screen" class="screen active">
+      <div class="card card-center">
+        <h2>Welcome to Sub Sandwich Ordering</h2>
+        <p class="subtitle">Please sign in or continue as guest to start your order.</p>
+        
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="app.showScreen('signin-screen')">Sign In</button>
+          <button class="btn btn-outline" onclick="app.showScreen('guest-address-screen')">Continue as Guest</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATH A: SIGN IN -->
+    <section id="signin-screen" class="screen">
+      <div class="card">
+        <h2>Sign In</h2>
+        <form id="signin-form" onsubmit="app.handleSignIn(event)">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required placeholder="user@example.com" value="student@university.edu">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required value="password123">
+          </div>
+          <button type="submit" class="btn btn-primary">Log In</button>
+          <button type="button" class="btn btn-link" onclick="app.showScreen('start-screen')">Back</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- LOGIN SUCCESS & PICKUP/DELIVERY FOR SIGNED-IN USER -->
+    <section id="user-setup-screen" class="screen">
+      <div class="card">
+        <div class="alert alert-success">Login Success! Welcome back, Student.</div>
+        
+        <h3>Select Fulfillment Method</h3>
+        <div class="form-group">
+          <label>Order Type</label>
+          <div class="radio-group">
+            <label><input type="radio" name="user-fulfillment" value="Delivery" checked> Delivery</label>
+            <label><input type="radio" name="user-fulfillment" value="Pickup"> Pickup</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Default Saved Address</label>
+          <input type="text" id="user-default-address" value="777 Campus Drive, Suite 4" readonly>
+        </div>
+
+        <div class="form-group">
+          <label>Default Store Location</label>
+          <input type="text" id="user-default-store" value="Main Street Branch (123 Main St)" readonly>
+        </div>
+
+        <button class="btn btn-primary" onclick="app.confirmUserSetup()">Proceed to Main Menu</button>
+      </div>
+    </section>
+
+    <!-- PATH B: GUEST INPUT ADDRESS -->
+    <section id="guest-address-screen" class="screen">
+      <div class="card">
+        <h2>Guest Checkout - Step 1: Address</h2>
+        <form onsubmit="app.handleGuestAddress(event)">
+          <div class="form-group">
+            <label for="guest-address">Delivery Address</label>
+            <input type="text" id="guest-address" required placeholder="Enter street address, city, zip code" value="123 Oak Street, Apt 2B">
+          </div>
+          <button type="submit" class="btn btn-primary">Continue</button>
+          <button type="button" class="btn btn-link" onclick="app.showScreen('start-screen')">Back</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- GUEST PICKUP/DELIVERY & STORE LOCATION -->
+    <section id="guest-store-screen" class="screen">
+      <div class="card">
+        <h2>Guest Checkout - Step 2: Pickup/Delivery & Store Location</h2>
+        <form onsubmit="app.handleGuestStore(event)">
+          <div class="form-group">
+            <label>Fulfillment Option</label>
+            <div class="radio-group">
+              <label><input type="radio" name="guest-fulfillment" value="Delivery" checked> Delivery</label>
+              <label><input type="radio" name="guest-fulfillment" value="Pickup"> Pickup</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="store-select">Select Store Location</label>
+            <select id="store-select" required>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Proceed to Main Menu</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- MAIN MENU -->
+    <section id="main-menu-screen" class="screen">
+      <h2>Main Menu</h2>
+      <p class="subtitle">Select a premade sub or create your own custom sub.</p>
+
+      <!-- Category Filter Tabs -->
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="app.filterCategory('all')">All Items</button>
+        <button class="tab-btn" onclick="app.filterCategory('Fresh Grilled hot subs')">Fresh Grilled Hot Subs</button>
+        <button class="tab-btn" onclick="app.filterCategory('Classic Subs')">Classic Subs</button>
+        <button class="tab-btn tab-highlight" onclick="app.openCustomBuilder()">+ Custom Sub Builder</button>
+      </div>
+
+      <!-- Build Your Own Sub Featured Card -->
+      <div class="custom-banner" onclick="app.openCustomBuilder()">
+        <div>
+          <h3>Build Your Own Custom Sub</h3>
+          <p>Choose your bread, size, meat, cheese, veggies, and sauce!</p>
+        </div>
+        <button class="btn btn-primary">Start Customizing &rarr;</button>
+      </div>
+
+      <!-- Premade Subs List -->
+      <h3 class="section-title">Premade Subs</h3>
+      <div id="subs-grid" class="grid">
+        <!-- Sub Cards rendered dynamically from JSON -->
+      </div>
+    </section>
+
+    <!-- CUSTOMIZE SCREEN (FOR PREMADE OR CUSTOM SUB) -->
+    <section id="customize-screen" class="screen">
+      <div class="card">
+        <h2 id="customize-title">Customize Your Sub</h2>
+        
+        <div class="customize-grid">
+          <!-- Left Column: Options Form -->
+          <form id="customize-form" onsubmit="app.handleAddToCart(event)">
+            <!-- Dynamic options injected here -->
+            <div id="customize-fields"></div>
+
+            <div class="form-group">
+              <label for="special-instructions">Special Instructions</label>
+              <input type="text" id="special-instructions" placeholder="e.g. Extra toasted, sauce on the side">
+            </div>
+
+            <div class="price-summary">
+              <span>Total Price: </span>
+              <strong id="custom-item-price">$0.00</strong>
+            </div>
+
+            <div class="button-group">
+              <button type="submit" class="btn btn-cta">Add to Order</button>
+              <button type="button" class="btn btn-outline" onclick="app.showScreen('main-menu-screen')">Cancel</button>
+            </div>
+          </form>
+
+          <!-- Right Column: Live Visual Ingredient Preview -->
+          <div class="sub-live-preview-box">
+            <div class="preview-title">Live Sub Preview</div>
+            <div id="sandwich-stack" class="sandwich-stack">
+              <!-- Live Visual Layers injected by app.updateLivePreview() -->
+            </div>
+            <div class="preview-title" style="margin-top:12px; font-size:0.85rem;">Active Ingredients</div>
+            <div id="ingredient-pills-list" class="ingredient-pills-list">
+              <!-- Pills injected by JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PAYMENT & CART REVIEW SCREEN -->
+    <section id="payment-screen" class="screen">
+      <h2>Order Review & Payment</h2>
+      
+      <div class="card">
+        <h3>Selected Items</h3>
+        <div id="cart-items-list">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="cart-totals">
+          <div class="total-row"><span>Subtotal:</span> <span id="cart-subtotal">$0.00</span></div>
+          <div class="total-row"><span>Tax (8%):</span> <span id="cart-tax">$0.00</span></div>
+          <div class="total-row grand-total"><span>Total:</span> <span id="cart-total">$0.00</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Payment Method</h3>
+        <form onsubmit="app.handlePayment(event)">
+          <div class="form-group">
+            <div class="radio-group flex-column">
+              <label><input type="radio" name="payment-method" value="Credit Card" checked> Credit / Debit Card</label>
+              <label><input type="radio" name="payment-method" value="Cash on Delivery"> Cash on Pickup/Delivery</label>
+              <label><input type="radio" name="payment-method" value="Campus Card"> Student Campus Card</label>
+            </div>
+          </div>
+
+          <div id="card-details-fields">
+            <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" placeholder="4532 •••• •••• 8899" value="4532 1234 5678 8899">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="card-exp">Expiry</label>
+                <input type="text" id="card-exp" placeholder="MM/YY" value="12/28">
+              </div>
+              <div class="form-group">
+                <label for="card-cvv">CVV</label>
+                <input type="text" id="card-cvv" placeholder="123" value="123">
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" id="pay-submit-btn" class="btn btn-cta">Complete Order</button>
+            <button type="button" class="btn btn-outline" onclick="app.showScreen('main-menu-screen')">Back to Menu</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ORDER CONFIRMATION SCREEN -->
+    <section id="order-screen" class="screen">
+      <div class="card card-center">
+        <div class="alert alert-success">
+          <h2>Order Confirmed!</h2>
+          <p>Your sub order has been successfully placed.</p>
+        </div>
+
+        <div class="order-details-box">
+          <p><strong>Order ID:</strong> <span id="summary-order-id">#SUB-9482</span></p>
+          <p><strong>Mode:</strong> <span id="summary-mode">Delivery</span></p>
+          <p><strong>Address/Store:</strong> <span id="summary-location">-</span></p>
+          <p><strong>Estimated Time:</strong> 20 - 30 minutes</p>
+          <hr>
+          <h4>Summary of Items:</h4>
+          <ul id="summary-items-list" class="summary-list"></ul>
+          <p><strong>Total Paid:</strong> <span id="summary-total">$0.00</span></p>
+        </div>
+
+        <button class="btn btn-primary" onclick="app.resetOrder()">Start New Order</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>Sub Sandwich Ordering Prototype - Mid-Fidelity Flowchart Demonstration</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

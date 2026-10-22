@@ -1,0 +1,90 @@
+{
+  "stores": [
+    { "id": 1, "name": "Main Street Branch", "address": "123 Main St, Downtown" },
+    { "id": 2, "name": "University Campus Branch", "address": "456 University Ave, Block B" },
+    { "id": 3, "name": "Westside Mall Branch", "address": "789 West Mall Blvd, Suite 10" }
+  ],
+  "premadeSubs": [
+    {
+      "id": "sub-1",
+      "name": "Philly Cheesesteak",
+      "category": "Fresh Grilled Hot Subs",
+      "price": 8.99,
+      "description": "Thinly sliced steak, melted provolone, grilled onions, and peppers on Italian bread.",
+      "defaultIngredients": ["Steak", "Provolone", "Grilled Onions", "Peppers"]
+    },
+    {
+      "id": "sub-2",
+      "name": "Chipotle Grilled Chicken",
+      "category": "Fresh Grilled Hot Subs",
+      "price": 8.49,
+      "description": "Grilled chicken breast, cheddar cheese, lettuce, tomato, and spicy chipotle sauce.",
+      "defaultIngredients": ["Grilled Chicken", "Cheddar", "Lettuce", "Tomato", "Chipotle Sauce"]
+    },
+    {
+      "id": "sub-3",
+      "name": "Buffalo Hot Chicken Sub",
+      "category": "Fresh Grilled Hot Subs",
+      "price": 8.49,
+      "description": "Hot buffalo chicken, swiss cheese, pickles, lettuce, and ranch dressing.",
+      "defaultIngredients": ["Buffalo Chicken", "Swiss Cheese", "Lettuce", "Pickles", "Ranch"]
+    },
+    {
+      "id": "sub-4",
+      "name": "Classic Italian Sub",
+      "category": "Classic Subs",
+      "price": 7.99,
+      "description": "Salami, pepperoni, ham, provolone cheese, lettuce, tomato, oil & vinegar.",
+      "defaultIngredients": ["Salami", "Pepperoni", "Ham", "Provolone", "Lettuce", "Tomato", "Oil & Vinegar"]
+    },
+    {
+      "id": "sub-5",
+      "name": "Turkey & Bacon Club",
+      "category": "Classic Subs",
+      "price": 7.99,
+      "description": "Oven-roasted turkey, crispy bacon, cheddar, lettuce, tomato, and mayo.",
+      "defaultIngredients": ["Turkey", "Bacon", "Cheddar", "Lettuce", "Tomato", "Mayo"]
+    },
+    {
+      "id": "sub-6",
+      "name": "Veggie Delight",
+      "category": "Classic Subs",
+      "price": 6.99,
+      "description": "Fresh lettuce, tomatoes, cucumbers, green peppers, onions, swiss cheese, and honey mustard.",
+      "defaultIngredients": ["Lettuce", "Tomato", "Cucumber", "Green Peppers", "Onion", "Swiss", "Honey Mustard"]
+    }
+  ],
+  "customOptions": {
+    "breads": [
+      { "name": "White Italian", "price": 0.00 },
+      { "name": "9-Grain Wheat", "price": 0.00 },
+      { "name": "Italian Herb & Cheese", "price": 0.50 }
+    ],
+    "sizes": [
+      { "name": "6-inch Sub", "priceMultiplier": 1.0 },
+      { "name": "12-inch Footlong", "priceMultiplier": 1.6 }
+    ],
+    "proteins": [
+      { "name": "Grilled Steak", "price": 4.00 },
+      { "name": "Grilled Chicken", "price": 3.50 },
+      { "name": "Turkey Breast", "price": 3.00 },
+      { "name": "Ham & Salami", "price": 3.00 },
+      { "name": "Plant-Based Patty", "price": 3.50 }
+    ],
+    "cheeses": [
+      { "name": "Provolone", "price": 0.50 },
+      { "name": "Cheddar", "price": 0.50 },
+      { "name": "Swiss", "price": 0.50 },
+      { "name": "American Cheese", "price": 0.50 },
+      { "name": "No Cheese", "price": 0.00 }
+    ],
+    "veggies": [
+      "Lettuce", "Tomatoes", "Cucumbers", "Pickles", 
+      "Green Peppers", "Red Onions", "Jalapenos", "Black Olives"
+    ],
+    "sauces": [
+      "Mayonnaise", "Yellow Mustard", "Honey Mustard", 
+      "Chipotle Southwest", "Ranch", "Oil & Vinegar", "BBQ Sauce"
+    ]
+  }
+}

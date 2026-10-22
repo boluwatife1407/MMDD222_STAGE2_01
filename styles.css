@@ -1,0 +1,627 @@
+/* Minimal Mid-Fidelity Prototype Styles */
+
+:root {
+  /* Color Palette */
+  --color-navy: #2D4B73;       /* Main primary headers, primary buttons */
+  --color-slate: #4F758C;      /* Secondary accents, tabs, badges */
+  --color-sand: #F2BE7E;       /* Banner background, warm highlights, card accents */
+  --color-brown: #8C4332;      /* Deep emphasis text, section titles, warm borders */
+  --color-rust: #D94436;       /* CTA buttons, cart count, highlights */
+
+  --bg-color: #f7f9fa;
+  --card-bg: #ffffff;
+  --text-main: #2d3748;
+  --text-muted: #4a5568;
+  --border-color: #d2d6dc;
+  
+  /* Requested Typography */
+  --font-header: "Filson Soft Bold", "Filson Soft", "Filson Bold", "FilsonSoft-Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Filson Soft", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  padding-bottom: 40px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Header */
+.app-header {
+  background-color: var(--color-navy);
+  color: #ffffff;
+  padding: 24px 0 16px 0;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-header);
+}
+
+.logo {
+  font-family: var(--font-header);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.app-logo {
+  height: 85px;
+  width: auto;
+  object-fit: contain;
+}
+
+.order-info-bar {
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 14px;
+  border-radius: 4px;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Category Navigation Bar */
+.main-nav {
+  background-color: var(--color-slate);
+  margin-top: 8px;
+  padding: 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-container {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 2px;
+}
+
+.nav-item {
+  font-family: var(--font-body);
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-item.nav-highlight {
+  background-color: var(--color-rust);
+  color: #ffffff;
+}
+
+.nav-item.nav-highlight:hover {
+  background-color: #b83427;
+}
+
+/* Screen Management */
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* Cards & Layout */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card-center {
+  text-align: center;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.card h2, .card h3 {
+  font-family: var(--font-header);
+  color: var(--color-navy);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-header);
+  margin: 24px 0 14px 0;
+  color: var(--color-brown);
+  font-size: 1.2rem;
+}
+
+/* Forms & Inputs */
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: var(--color-navy);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background-color: #fff;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--color-slate);
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+  padding: 4px 0;
+}
+
+.radio-group.flex-column {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-group label {
+  font-weight: normal;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--color-navy);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #1f3654;
+}
+
+.btn-cta {
+  background-color: var(--color-rust);
+  color: #ffffff;
+}
+
+.btn-cta:hover {
+  background-color: #b83427;
+}
+
+.btn-secondary {
+  background-color: var(--color-slate);
+  color: #ffffff;
+  border-color: var(--color-slate);
+}
+
+.btn-secondary:hover {
+  background-color: #3b5a6f;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-slate);
+  color: var(--color-navy);
+}
+
+.btn-outline:hover {
+  background-color: #eef3f6;
+}
+
+.btn-link {
+  background: none;
+  color: var(--color-rust);
+  text-decoration: underline;
+  padding: 8px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Grid & Items */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.sub-card {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sub-card:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.sub-placeholder-image {
+  background-color: #f3f4f6;
+  color: var(--color-slate);
+  height: 120px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  border: 1px dashed var(--color-slate);
+}
+
+.sub-title {
+  font-family: var(--font-header);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: var(--color-navy);
+}
+
+.sub-category-tag {
+  font-size: 0.75rem;
+  background: rgba(79, 117, 140, 0.15);
+  color: var(--color-navy);
+  padding: 3px 8px;
+  border-radius: 3px;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.sub-description {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-grow: 1;
+  margin-bottom: 12px;
+}
+
+.sub-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.sub-price {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--color-brown);
+}
+
+/* Custom Sub Banner */
+.custom-banner {
+  background: var(--color-sand);
+  border: 2px dashed var(--color-brown);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  cursor: pointer;
+  color: #3d2410;
+}
+
+.custom-banner h3 {
+  color: var(--color-brown);
+  margin-bottom: 4px;
+}
+
+.custom-banner:hover {
+  background: #ebd4a8;
+}
+
+/* Tab Navigation */
+.tab-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--color-navy);
+}
+
+.tab-btn.active {
+  background: var(--color-navy);
+  color: #fff;
+  border-color: var(--color-navy);
+}
+
+.tab-highlight {
+  border-color: var(--color-rust);
+  color: var(--color-rust);
+  font-weight: bold;
+}
+
+.tab-highlight:hover {
+  background-color: var(--color-rust);
+  color: #fff;
+}
+
+/* Checkbox Grid for Veggies/Sauces */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: normal;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+/* Alerts & Summaries */
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.alert-success {
+  background-color: rgba(79, 117, 140, 0.15);
+  color: var(--color-navy);
+  border: 1px solid var(--color-slate);
+}
+
+.price-summary {
+  font-size: 1.1rem;
+  margin: 16px 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+  color: var(--color-brown);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cart-item-details {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.cart-totals {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px solid var(--border-color);
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+.grand-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: var(--color-rust);
+}
+
+.order-details-box {
+  background: rgba(242, 190, 126, 0.25);
+  border: 1px solid var(--color-sand);
+  padding: 16px;
+  border-radius: 4px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.summary-list {
+  margin: 10px 0 10px 20px;
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Customize 2-Column Layout & Live Preview */
+.customize-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .customize-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sub-live-preview-box {
+  background: #f8fafc;
+  border: 2px solid var(--color-slate);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+
+.preview-title {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--color-navy);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sandwich-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 16px 0;
+  min-height: 180px;
+  justify-content: center;
+}
+
+.layer {
+  width: 90%;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+.layer-bread-top {
+  background: linear-gradient(180deg, #e5a960 0%, #c48336 100%);
+  border-radius: 20px 20px 6px 6px;
+  height: 28px;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.layer-bread-bottom {
+  background: linear-gradient(180deg, #c48336 0%, #a3661f 100%);
+  border-radius: 6px 6px 16px 16px;
+  height: 24px;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.layer-protein {
+  background: #8C4332; /* Saddle brown */
+}
+
+.layer-cheese {
+  background: #f59e0b; /* Golden cheddar cheese */
+  color: #333;
+}
+
+.layer-veggie {
+  background: #10b981; /* Fresh green lettuce/veggie */
+}
+
+.layer-sauce {
+  background: #D94436; /* Rust red sauce */
+}
+
+.ingredient-pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.ingredient-pill {
+  font-size: 0.75rem;
+  background: #edf2f7;
+  color: var(--color-navy);
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--color-slate);
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
